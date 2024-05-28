@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  canvas-front:
+    image: vallelabs/canvas-frontend:0.9.0
+    container_name: canvas-front
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "tumlab.local:192.168.4.1"
+    environment:
+      NEXT_PUBLIC_API_URL : http://tumlab.local:4015
+      NEXT_PUBLIC_PORT : 3000
+    ports:
+      - "3015:3000"
+    networks:
+      - valle-canvas-net
+
+  canvas-back:
+    image: vallelabs/canvas-backend:0.6.4
+    container_name: canvas-back
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "tumlab.local:192.168.4.1"
+    env_file:
+      - /tumlab/apps/envs/.env-canvas-back
+    ports:
+      - "4015:3000"
+    networks:
+      - valle-canvas-net
+  keycloak:
+    image: docker.io/bitnami/keycloak:20
+    container_name: canvas_keycloak
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "tumlab.local:192.168.4.1"
+    environment:
+      KEYCLOAK_CREATE_ADMIN_USER: true
+      KEYCLOAK_ADMIN_USER: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KEYCLOAK_MANAGEMENT_USER: manager
+      KEYCLOAK_MANAGEMENT_PASSWORD: password
+      KEYCLOAK_DATABASE_HOST: host.docker.internal
+      KEYCLOAK_DATABASE_PORT: 5432
+      KEYCLOAK_DATABASE_NAME: keycloakcanvas
+      KEYCLOAK_DATABASE_USER: postgres
+      KEYCLOAK_DATABASE_PASSWORD: Tumlab2022*
+      KEYCLOAK_DATABASE_SCHEMA: public
+      KEYCLOAK_HTTP_PORT: 8080
+      KEYCLOAK_HTTPS_PORT: 8443
+      KEYCLOAK_BIND_ADDRESS: 0.0.0.0
+      KEYCLOAK_ENABLE_STATISTICS: true
+      KEYCLOAK_PRODUCTION: false
+      KC_HTTP_RELATIVE_PATH: "/auth"
+      KEYCLOAK_LOG_LEVEL: INFO
+    ports:
+      - 8078:8080
+    networks:
+      - valle-canvas-net
+
+networks:
+  valle-canvas-net:
+    driver: bridge
