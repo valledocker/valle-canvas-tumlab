@@ -25,6 +25,44 @@ services:
       - "tumlab.local:192.168.4.1"
     env_file:
       - /tumlab/apps/envs/.env-canvas-back
+    environment:
+      BACKEND_URL : http://tumlab.local:4015
+      DB_DATABASE : canvas
+      DB_HOST : host.docker.internal
+      DB_PASSWORD : Tumlab2022*
+      DB_PORT : 3306
+      DB_USER : root
+      EMAIL_FROM : test@tumlab.local
+      EMAIL_HOST : tumlab.local
+      EMAIL_PASSWORD : test
+      EMAIL_PORT : 587
+      EMAIL_SECURE : false
+      EMAIL_USER : test@tumlab.local
+      KEYCLOAK_AUTH_SERVER_URL : http://tumlab.local:8078/auth
+      KEYCLOAK_CLIENT_ID : canvas-client
+      KEYCLOAK_DB_ADDR : host.docker.internal
+      KEYCLOAK_DB_DATABASE : keycloakcanvas
+      KEYCLOAK_DB_PASSWORD : Tumlab2022*
+      KEYCLOAK_DB_PORT : 5432
+      KEYCLOAK_DB_USER : postgres
+      KEYCLOAK_ID : 54ab4afb-4efb-4130-bed0-f4d58fbdef61
+      KEYCLOAK_PASSWORD : password
+      KEYCLOAK_REALM : ecosistema-auth
+      KEYCLOAK_SECRET : 748d6765-f274-4c7a-80ad-a18983b315fa
+      KEYCLOAK_USER : admin
+      NODE_ENV : prod
+      PORT : 3000
+      STORAGE_ACCESS_KEY : admin
+      STORAGE_API_ENDPOINT : host.docker.internal
+      STORAGE_BUCKET_NAME : canvas-backend
+      STORAGE_IS_ENABLED : true
+      STORAGE_PORT : 9000
+      STORAGE_ACCESS_KEY: minioadmin
+      STORAGE_SECRET_KEY: minioadmin
+      STORAGE_USE_SSL : false
+      SUPPORT_EMAIL : soporte.gestionpedagogica@avefenix.edu.co
+      WEB_LOGIN : http://tumlab.local:3015/login
+      WEB_SUPPORT : https://soporte.gestionpedagogica.avefenix.edu.co
     ports:
       - "4015:3000"
     networks:
