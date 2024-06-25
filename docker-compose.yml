@@ -17,7 +17,7 @@ services:
       - valle-canvas-net
 
   canvas-back:
-    image: vallelabs/canvas-backend:0.6.4
+    image: vallelabs/canvas-backend:1.0.1-tumlab
     container_name: canvas-back
     restart: always
     extra_hosts:
@@ -62,6 +62,7 @@ services:
       SUPPORT_EMAIL : soporte.gestionpedagogica@avefenix.edu.co
       WEB_LOGIN : http://tumlab.local:3015/login
       WEB_SUPPORT : https://soporte.gestionpedagogica.avefenix.edu.co
+      IS_TUMLAB : true
     ports:
       - "4015:3000"
     networks:
